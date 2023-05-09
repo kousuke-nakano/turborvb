@@ -186,6 +186,27 @@ def p(infile, outfile, cases, name):
 
     """
 
+    licence = """
+
+! Copyright (C) 2022 TurboRVB group
+!
+! This program is free software: you can redistribute it and/or modify
+! it under the terms of the GNU General Public License as published by
+! the Free Software Foundation, either version 3 of the License, or
+! (at your option) any later version.
+!
+! This program is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+!
+! You should have received a copy of the GNU General Public License
+! along with this program. If not, see <http://www.gnu.org/licenses/>.
+!
+! Otto Kohulák created on 5th Nov. 2021.
+
+    """
+
     entry_re = "(^ *! *PPC) *\{(.*)\}"
 
     start = False
@@ -193,6 +214,7 @@ def p(infile, outfile, cases, name):
 
     with open(infile, "r") as fi:
         with open(outfile, "w") as fo:
+            fo.write(licence)
             fo.write(message)
             lines = [ l for l in fi ]
             for ii, line in enumerate(lines):
