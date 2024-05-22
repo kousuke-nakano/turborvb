@@ -155,9 +155,9 @@ subroutine reweight0(nw, in1, npr, npm, factorsr                 &
                     indscra = indscra + 2
                 end if
             end do
-        else
-            write (indopen3) cost, ((econf(i - istm, j), econfh(i - istm, j), j=1, np) &
-                    &, factorsr(i - istm), enert(1:ipc, i - istm), i=ist, ien)
+        !else
+        !    write (indopen3) cost, ((econf(i - istm, j), econfh(i - istm, j), j=1, np) &
+        !            &, factorsr(i - istm), enert(1:ipc, i - istm), i=ist, ien)
         end if
 
         if (iweight .eq. 1) then

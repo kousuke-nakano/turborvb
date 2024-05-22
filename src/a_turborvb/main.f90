@@ -3063,6 +3063,25 @@ contains
                      &, ener_true, fk, dimfk, okav, weightall, 1, ndimp, rank, commrep_mpi, nprocrep&
                      &, commrep_mpi, nprocrep, nproc)
 
+
+  block
+    integer :: array_length, unit_number
+    array_length = size(force)
+    unit_number = 8746
+    if (rank.eq.0) then
+        open(unit=unit_number, file='general_force.dat', status='replace', action='write')
+        do i = 1, ndimp
+            write(unit_number, '(F10.4, F10.4)') force(i)*ris(2), err(i)*ris(2) ! The unit is Ry -> Ha
+        end do
+        close(unit=unit_number)
+    endif
+  end block
+#ifdef PARALLEL
+  call mpi_barrier(MPI_COMM_WORLD, ierr)
+  call mpi_finalize(ierr)
+#endif
+  stop
+
 #ifdef PARALLEL
 
                 if (yesquantum) then
@@ -3243,6 +3262,24 @@ contains
                  &, writescratch, countscra, bufscra, jas_invariant, tolcg, ieskinion     &
                  &, rion, iespbc, atom_number, eps_dyn5, maxdev_dyn, acc_dyn, normcorr&
                  &, row_comm, row_id, yescomm)
+  
+    if (rank.eq.0) write(6,*) 'here'
+  block
+    integer :: array_length, unit_number
+    array_length = size(alphab)
+    unit_number = 2810
+    if (rank.eq.0) then
+        open(unit=unit_number, file='reduced_general_force.dat', status='replace', action='write')
+        do i = 1, array_length-1
+            write(unit_number, '(F10.4)') alphab(i)
+        end do
+        close(unit=unit_number)
+    endif
+  end block
+#ifdef PARALLEL
+  call mpi_barrier(MPI_COMM_WORLD, ierr)
+#endif
+  stop
 
             time0 = cclock()
             if (rank .eq. 0) write (6, *) ' Total time reweight =', time0 - timep
