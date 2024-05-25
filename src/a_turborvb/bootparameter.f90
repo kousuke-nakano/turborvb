@@ -300,11 +300,14 @@ block
     character(len=40) :: filename
     unit_number=5645+rank
     do ppp = 1, nbin
-        write(filename, "('general_force_j_',I0,'_mpirank_',I0,'.dat')") ppp, rank
-        open(unit=unit_number, file=filename, status='replace', action='write')
+        !write(filename, "('general_force_j_',I0,'_mpirank_',I0,'.dat')") ppp, rank
+        !open(unit=unit_number, file=filename, status='replace', action='write')
+        write(filename, "('general_force_j_',I0,'_mpirank_',I0,'.bin')") ppp, rank
+        open(unit=unit_number, file=filename, status='replace', action='write', form='unformatted', access='stream')
         if (ipc .eq. 1) then ! real WF
             do lll = min_par, max_par
-                write(unit_number, '(F16.10)') fk(ppp, lll) * 0.5d0 ! Ry -> Ha
+                !write(unit_number, '(F16.10)') fk(ppp, lll) * 0.5d0 ! Ry -> Ha
+                write(unit_number) fk(ppp, lll) * 0.5d0 ! Ry -> Ha
             end do
         else ! complex WF
             do lll = min_par, max_par, 4
@@ -314,10 +317,12 @@ block
                 ! fk(ppp, lll+2) : +Re(dE/dIm)
                 ! fk(ppp, lll+3) : -Im(dE/dIm)
                 if((abs(fk(ppp, lll) + fk(ppp, lll+3)).gt.1.0d-10).or.(abs(fk(ppp,lll+2) - fk(ppp, lll+1)).gt.1.0d-10)) then
-                    write(unit_number, '(F16.10)') 'Error!! the cauchy relation is satisfied.'
+                    write(6, *) 'Error!! the cauchy relation is satisfied.'
                 else
-                    write(unit_number, '(F16.10)') fk(ppp, lll) * 0.5d0 ! Ry -> Ha ! +Re(dE/dRe)
-                    write(unit_number, '(F16.10)') fk(ppp, lll+2) * 0.5d0 ! Ry -> Ha ! +Re(dE/dIm)
+                    !write(unit_number, '(F16.10)') fk(ppp, lll) * 0.5d0 ! Ry -> Ha ! +Re(dE/dRe)
+                    !write(unit_number, '(F16.10)') fk(ppp, lll+2) * 0.5d0 ! Ry -> Ha ! +Re(dE/dIm)
+                    write(unit_number) fk(ppp, lll) * 0.5d0 ! Ry -> Ha ! +Re(dE/dRe)
+                    write(unit_number) fk(ppp, lll+2) * 0.5d0 ! Ry -> Ha ! +Re(dE/dIm)
                 endif
             end do
         endif
