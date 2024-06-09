@@ -208,13 +208,13 @@ In order to run correctly all the tools, you should put in your path the `turbor
 
 We recommend you should run `jobcheck_serial.sh` in `test` directory every time you compile `TurboRVB` on your machine. If you compile `TurboRVB` with the modern `CMake`, you can do a more comprehensive test with the `ctest` command (See the CMake section).
 
-# Manuals for users
+# Manual for users
 
-There is a Read the Docs in the `doc` directory. Documented by `Sphinx`. The manual is deployed from [GitHub Pages](https://sissaschool.github.io/turborvb/).
+User Manual is provided in another project. Visit the [turbotutorials repository](https://github.com/kousuke-nakano/turbotutorials).
 
 # Tutorials for users
 
-Tutorials are provided in another project. Visit the [turbotutorials repository](https://github.com/kousuke-nakano/turbotutorials) on the GitHub.
+Tutorials are provided in another project. Visit the [turbotutorials repository](https://github.com/kousuke-nakano/turbotutorials).
 
 # Reference(s)
 
