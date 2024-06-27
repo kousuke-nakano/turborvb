@@ -1463,8 +1463,8 @@ contains
         do i1 = 1, ntotatoms
             zetaw = zeta(1, i1)
             ! K.N. on 27 June. 2024. Why .ge. 5? because for zeta .le. 4., there are pseudo potentials that
-            ! do not remove any core electrons. In such a case, zeta and zetaw should be different to tell 
-            ! turborvb that valence electrons = atomic number for that atom, but a pseudo potential is assgined. 
+            ! do not remove any core electrons. In such a case, zeta and zetaw should be different to tell
+            ! turborvb that valence electrons = atomic number for that atom, but a pseudo potential is assgined.
             if ((int(zeta(1, i1)) .ge. 5) .or. nopseudo) then
                 zetaw = int(zeta(1, i1))
             end if
