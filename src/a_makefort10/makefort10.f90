@@ -1462,9 +1462,10 @@ contains
         write (ufort10, *) '# Ion coordinates'
         do i1 = 1, ntotatoms
             zetaw = zeta(1, i1)
-            if ((int(zeta(1, i1)) .ne. 1 .and. int(zeta(1, i1)) .ne. 2 &
-                 .and. int(zeta(1, i1)) .ne. 3 .and. int(zeta(1, i1)) .ne. 4) &
-                .or. nopseudo) then
+            ! K.N. on 27 June. 2024. Why .ge. 5? because for zeta .le. 4., there are pseudo potentials that
+            ! do not remove any core electrons. In such a case, zeta and zetaw should be different to tell 
+            ! turborvb that valence electrons = atomic number for that atom, but a pseudo potential is assgined. 
+            if ((int(zeta(1, i1)) .ge. 5) .or. nopseudo) then
                 zetaw = int(zeta(1, i1))
             end if
             write (ufort10, '(1f6.0,1f8.2,3f22.14)') zeta(2, i1), zetaw, (rion(j, i1), j=1, 3)
